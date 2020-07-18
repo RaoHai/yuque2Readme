@@ -19,4 +19,4 @@ inputs:
     default: '{{datocms_content}}'
 runs:
   using: 'node12'
-  main: 'index.js'
+  main: 'dist/index.js'
