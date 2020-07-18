@@ -43049,7 +43049,7 @@ const SDK = __webpack_require__(242);
 
 const defaultTemplate = `
 {{#each record}}
-  - [{{title}} ({{short createdAt format="MMMM dd, YYYY"}})](https://buzhou.top/blogs/{{slug}})
+  - [{{title}} ( {{short created_at "MM-dd"}} · {{math likes_count "*" 7}}颗稻谷)](https://yuque.com/{{@root.namespace}}/{{slug}})
 {{/each}}
 `;
 
