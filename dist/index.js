@@ -43062,11 +43062,15 @@ Handlebars.registerHelper('short', function (date, options) {
     const yuqueToken = core.getInput('yuque-token');
     const namespace = core.getInput('yuque-namespace');
     const yuqueTemplateFile = core.getInput('yuque-template-file') || '';
-    const yuqueOutputFile = core.getInput('yueue-output-file') || 'README.md';
+    const yuqueOutputFile = core.getInput('yuque-output-file') || 'README.md';
+    const publicOnly = core.getInput('yuque-doc-public-only');
 
     const client = new SDK({ token: yuqueToken });
 
-    const docs = await client.docs.list({ namespace });
+    const docs = (await client.docs.list({ namespace })).filter(doc =>
+      (publicOnly ? !!doc.public : true)
+    );
+
     const templateContent = fs.existsSync(yuqueTemplateFile) ?  fs.readFileSync(yuqueTemplateFile, 'utf-8') : defaultTemplate;
     const fileTemplate = Handlebars.compile(templateContent);
 

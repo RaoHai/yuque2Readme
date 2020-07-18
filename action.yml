@@ -12,6 +12,10 @@ inputs:
     description: '填你自己的空间标识。比如语雀的博客是： `yuque/blog`'
     required: true
     default: 'yuque/blog'
+  yuque-doc-public-only:
+    description: '是否只列出已发布的文章'
+    required: false,
+    default: true
   yuque-template-file:
     description: 'Template for generate output'
     default: 'README.template.md'
