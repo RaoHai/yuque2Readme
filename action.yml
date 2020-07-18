@@ -9,17 +9,18 @@ inputs:
     description: 'Module IDs for generate contents, spilit by `,`. (https://www.datocms.com/docs/content-management-api/resources/item-type)'
     required: false
     default: 'blog'
-  datocms-post-url:
-    description: 'Url to your post. (ie. `https://buzhou.top/blogs/{{slug}}`)'
+  datocms-record-template:
+    description: 'template to generate each line.'
     required: true
-    default: 'http://localhost/blogs/{{slug}}'
-  markdown-file:
+    default: '- [{{title}}](http://localhost/blogs/{{slug}})'
+  datocms-putput-file:
     description: 'Which file to write'
-    required: true
     default: 'README.md'
-  template-variable:
+  datocms-template-file:
+    description: 'Template for generate output'
+    deafult: 'README.template.md'
+  datocms-template-variable:
     description: 'Where to inject generated content'
-    required: true
     default: '{{datocms_content}}'
 runs:
   using: 'node12'
