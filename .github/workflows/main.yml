@@ -14,7 +14,7 @@ jobs:
         id: hello
         with:
           datocms-token: ${{secrets.DATO_CMS_TOKEN}}
-          datocms-record-template: '- [{{title}} ({{createdAt short}})](https://buzhou.top/blogs/{{slug}})'
+          datocms-record-template: '- [{{title}} ({{short createdAt}})](https://buzhou.top/blogs/{{slug}})'
       - name: Result
         run: |-
           cat README.md
