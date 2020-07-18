@@ -18,13 +18,13 @@ Handlebars.registerHelper('short', function (date, options) {
 (async function () {
   try {
     const yuqueToken = core.getInput('yuque-token');
-    const yuqueNamespace = core.getInput('yuque-namespace');
+    const namespace = core.getInput('yuque-namespace');
     const yuqueTemplateFile = core.getInput('yuque-template-file') || '';
     const yuqueOutputFile = core.getInput('yueue-output-file') || 'README.md';
 
     const client = new SDK({ token: yuqueToken });
 
-    const docs = await client.docs.list({ namespace: yuqueNamespace });
+    const docs = await client.docs.list({ namespace });
     const templateContent = fs.existsSync(yuqueTemplateFile) ?  fs.readFileSync(yuqueTemplateFile, 'utf-8') : defaultTemplate;
     const fileTemplate = Handlebars.compile(templateContent);
 
