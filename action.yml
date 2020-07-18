@@ -9,19 +9,12 @@ inputs:
     description: 'Module IDs for generate contents, spilit by `,`. (https://www.datocms.com/docs/content-management-api/resources/item-type)'
     required: false
     default: 'blog'
-  datocms-record-template:
-    description: 'template to generate each line.'
-    required: true
-    default: '- [{{title}}](http://localhost/blogs/{{slug}})'
-  datocms-output-file:
-    description: 'Which file to write'
-    default: 'README.md'
   datocms-template-file:
     description: 'Template for generate output'
     default: 'README.template.md'
-  datocms-template-variable:
-    description: 'Where to inject generated content'
-    default: '{{datocms_content}}'
+  datocms-output-file:
+    description: 'Which file to write'
+    default: 'README.md'
 runs:
   using: 'node12'
   main: 'dist/index.js'

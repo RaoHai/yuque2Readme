@@ -5,6 +5,12 @@ const { format } = require('date-fns');
 
 const { SiteClient } = require('datocms-client');
 
+const defaultTemplate = `
+{{#each record}}
+  - [{{title}} ({{short createdAt format="MMMM dd, YYYY"}})](https://buzhou.top/blogs/{{slug}})
+{{/each}}
+`;
+
 Handlebars.registerHelper('short', function (date, options) {
   return format(new Date(date), options && options.format || 'MMMM dd');
 });
@@ -13,10 +19,8 @@ Handlebars.registerHelper('short', function (date, options) {
   try {
     const datocmsToken = core.getInput('datocms-token');
     const datocmsFilterModelIds = core.getInput('datocms-filter-model-ids') || '';
-    const datocmsRecordTemplate = core.getInput('datocms-record-template') || '';
     const datocmsTemplateFile = core.getInput('datocms-template-file') || '';
     const datocmsOutputFile = core.getInput('datocms-output-file') || 'README.md';
-    const datocmsTemplateVariable = core.getInput('datocms-template-variable');
 
     const filterIds = datocmsFilterModelIds.split(',');
 
@@ -29,14 +33,10 @@ Handlebars.registerHelper('short', function (date, options) {
     const filterdItems = (await client.items.all({ 'page[limit]': 5, version: 'published' }))
       .filter(({ itemType }) => itemTypes.includes(itemType));
 
-    const contentTemplate = Handlebars.compile(datocmsRecordTemplate);
+    const templateContent = fs.existsSync(datocmsTemplateFile) ?  fs.readFileSync(datocmsTemplateFile, 'utf-8') : defaultTemplate;
+    const fileTemplate = Handlebars.compile(templateContent);
 
-    const content = '\n' + filterdItems.map(post => contentTemplate(post)).join('\n') + '\n';
-
-    const templateContent = fs.existsSync(datocmsTemplateFile) ?  fs.readFileSync(datocmsTemplateFile, 'utf-8') : '';
-
-    const fileContent = templateContent.replace(datocmsTemplateVariable, content);
-    fs.writeFileSync(datocmsOutputFile, fileContent);
+    fs.writeFileSync(datocmsOutputFile, fileTemplate({ record: filterdItems }));
 
   } catch (e) {
     core.setFailed(e.message);
