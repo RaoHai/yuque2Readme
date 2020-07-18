@@ -1,21 +1,6 @@
-#  DatoCMS2md action
+# Template Example
 
-This action will embed DatoCms contents into Markdown.
+## Hi! This is My Profile.
 
-## Inputs
 
-### `datocms-token:`
-
-**Required** Token of your datoCms site.enter your project administrative area (ie. http://your-project.admin.datocms.com) and go to the  Settings > API Tokens section.
-
-### `datocms-site-url`:
-
-**Required**  Url of your datoCms site. Like https://site-api.datocms.com/site.
-
-### `markdown-file`:
-
-**Required** Which file to write your content, default to `README.md`.
-
-### `template-variable` :
-
-**Required** Where to inject generated content, default to `{{datocms_content}}`
+- [tzdb (2020-06-26T20:35:16.155+08:00)](https://buzhou.top/blogs/tzdb),- [webpack (2020-06-26T19:58:15.916+08:00)](https://buzhou.top/blogs/webpack)
