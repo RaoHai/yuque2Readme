@@ -15,7 +15,6 @@ jobs:
           yuque-token: ${{secrets.YUQUE_TOKEN}}
           yuque-namespace: 'luchen/buzhou'
           yuque-output-file: README.output.md
-          yuque-record-template: '- [{{title}} ({{short createdAt format="MMMM dd, YYYY"}})](https://yuque.com/{{namespace}}/{{slug}})'
       - name: Result
         run: |-
           cat README.md
