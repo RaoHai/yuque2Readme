@@ -1,32 +1,30 @@
-#  DatoCMS2md action
+#  Yuque2Readme action
 
-This action will embed DatoCms contents into Markdown.
+This action will embed contents of yuque into `README.md` .
 
 ## Inputs
 
-### `datocms-token:`
+### `yuque-token`
 
-**Required** Token of your datoCms site.enter your project administrative area (ie. http://your-project.admin.datocms.com) and go to the  Settings > API Tokens section.
+**Required** 语雀的 token，去 https://www.yuque.com/settings/tokens 里找。需要读取你的知识库和文档
 
-### `datocms-filter-model-ids`
+### `namespace`
 
-Module IDs for generate contents, spilit by `,`.  If specified, only the content corresponding to given module ids will be generated. About module Id, see: (https://www.datocms.com/docs/content-management-api/resources/item-type).
+**Required** 空间标识。比如语雀的博客： `yuque/blog`
 
-### `datocms-template-file`
+### `yuque-template-file`
 
-Template file for creating file.Template language is [handlebars](https://handlebarsjs.com/guide/), and generate markdown.
+模板文件名。语法是 [handlebars](https://handlebarsjs.com/guide/)，生成 markdown。
 
+### `yuque-output-file`
 
-### `datocms-output-file`
-
-Which file to write. Default to `README.md`
+输出文件名。默认是写到 `README.md`
 
 
 ## Example
 
 ```yaml
 on: [push]
-
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
@@ -40,9 +38,10 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: hello
         with:
-          datocms-token: ${{secrets.DATO_CMS_TOKEN}}
-          datocms-output-file: README.md
-          datocms-record-template: '- [{{title}} ({{short createdAt format="MMMM dd, YYYY"}})](https://buzhou.top/blogs/{{slug}})'
+          yuque-token: ${{secrets.YUQUE_TOKEN}}
+          yuque-namespace: 'luchen/buzhou'
+          yuque-output-file: README.output.md
+          yuque-record-template: '- [{{title}} ({{short createdAt format="MMMM dd, YYYY"}})](https://yuque.com/{{namespace}}/{{slug}})'
       - name: Result
         run: |-
           cat README.md
@@ -54,4 +53,5 @@ jobs:
           git config --global user.name "GitHub Action Bot"
           git commit -m "Updated README" -a || echo "No changes to commit"
           git push
+
 ```

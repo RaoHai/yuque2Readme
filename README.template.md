@@ -3,5 +3,5 @@
 ## Hi! This is My Profile.
 
 {{#each record}}
-  - [{{title}} ({{short createdAt format="MMMM dd, YYYY"}})](https://buzhou.top/blogs/{{slug}})
+  - [{{title}} ({{short created_at format="MMMM dd, YYYY"}})](https://yuque.com/{{namespace}}/{{slug}})
 {{/each}}

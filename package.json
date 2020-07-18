@@ -1,5 +1,5 @@
 {
-  "name": "datocms2md",
+  "name": "yuque2readme",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -9,20 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RaoHai/datocms2md.git"
+    "url": "git+https://github.com/RaoHai/yuque2Readme.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RaoHai/datocms2md/issues"
+    "url": "https://github.com/RaoHai/yuque2Readme/issues"
   },
-  "homepage": "https://github.com/RaoHai/datocms2md#readme",
+  "homepage": "https://github.com/RaoHai/yuque2Readme#readme",
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/github": "^4.0.0",
+    "@yuque/sdk": "^1.1.1",
     "date-fns": "^2.15.0",
-    "datocms-client": "^3.0.34",
     "handlebars": "^4.7.6"
   }
 }

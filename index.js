@@ -3,7 +3,7 @@ const core = require('@actions/core');
 const Handlebars = require('handlebars');
 const { format } = require('date-fns');
 
-const { SiteClient } = require('datocms-client');
+const SDK = require('@yuque/sdk');
 
 const defaultTemplate = `
 {{#each record}}
@@ -17,26 +17,18 @@ Handlebars.registerHelper('short', function (date, options) {
 
 (async function () {
   try {
-    const datocmsToken = core.getInput('datocms-token');
-    const datocmsFilterModelIds = core.getInput('datocms-filter-model-ids') || '';
-    const datocmsTemplateFile = core.getInput('datocms-template-file') || '';
-    const datocmsOutputFile = core.getInput('datocms-output-file') || 'README.md';
+    const yuqueToken = core.getInput('yuque-token');
+    const yuqueNamespace = core.getInput('yuque-namespace');
+    const yuqueTemplateFile = core.getInput('yuque-template-file') || '';
+    const yuqueOutputFile = core.getInput('yueue-output-file') || 'README.md';
 
-    const filterIds = datocmsFilterModelIds.split(',');
+    const client = new SDK({ token: yuqueToken });
 
-    const client = new SiteClient(datocmsToken);
-
-    const itemTypes = (await client.itemTypes.all())
-      .filter(({ apiKey }) => filterIds.length ? filterIds.includes(apiKey) : true)
-      .map(({ id }) => id);
-
-    const filterdItems = (await client.items.all({ 'page[limit]': 5, version: 'published' }))
-      .filter(({ itemType }) => itemTypes.includes(itemType));
-
-    const templateContent = fs.existsSync(datocmsTemplateFile) ?  fs.readFileSync(datocmsTemplateFile, 'utf-8') : defaultTemplate;
+    const docs = await client.docs.list({ namespace: yuqueNamespace });
+    const templateContent = fs.existsSync(yuqueTemplateFile) ?  fs.readFileSync(yuqueTemplateFile, 'utf-8') : defaultTemplate;
     const fileTemplate = Handlebars.compile(templateContent);
 
-    fs.writeFileSync(datocmsOutputFile, fileTemplate({ record: filterdItems }));
+    fs.writeFileSync(yuqueOutputFile, fileTemplate({ namespace, record: docs }));
 
   } catch (e) {
     core.setFailed(e.message);
