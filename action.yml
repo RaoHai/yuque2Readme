@@ -1,5 +1,8 @@
 name: 'DatoCMS to Markdown'
 description: 'Easily embed DatoCMS contents into Markdown.'
+branding:
+  icon: 'archive'
+  color: 'purple'
 inputs:
   datocms-token: # token of datoCms
     description: 'Token of your datoCms site.enter your project administrative area (ie. http://your-project.admin.datocms.com) and go to the  Settings > API Tokens section.'
