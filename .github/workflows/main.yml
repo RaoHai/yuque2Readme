@@ -13,7 +13,7 @@ jobs:
         id: hello
         with:
           yuque-token: ${{secrets.YUQUE_TOKEN}}
-          yuque-namespace: 'luchen/buzhou'
+          yuque-namespace: 'luchen/miscellaneous'
           yuque-output-file: README.output.md
       - name: Result
         run: |-
