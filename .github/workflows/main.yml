@@ -15,3 +15,14 @@ jobs:
         with:
           datocms-token: ${{secrets.DATO_CMS_TOKEN}}
           datocms-record-template: '- [{{slug}} ({{createdAt}})](https://buzhou.top/blogs/{{slug}})'
+      - name: Result
+          run: |-
+            cat README.md
+      - name: Commit and push if changed
+        run: |-
+          git add .
+          git diff
+          git config --global user.email "github-action-bot@example.com"
+          git config --global user.name "GitHub Action Bot"
+          git commit -m "Updated README" -a || echo "No changes to commit"
+          git push

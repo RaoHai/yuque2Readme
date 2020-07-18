@@ -13,12 +13,12 @@ inputs:
     description: 'template to generate each line.'
     required: true
     default: '- [{{title}}](http://localhost/blogs/{{slug}})'
-  datocms-putput-file:
+  datocms-output-file:
     description: 'Which file to write'
     default: 'README.md'
   datocms-template-file:
     description: 'Template for generate output'
-    deafult: 'README.template.md'
+    default: 'README.template.md'
   datocms-template-variable:
     description: 'Where to inject generated content'
     default: '{{datocms_content}}'

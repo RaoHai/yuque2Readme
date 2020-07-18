@@ -8,7 +8,7 @@ const fs = require('fs');
     const datocmsFilterModelIds = core.getInput('datocms-filter-model-ids') || '';
     const datocmsPostUrl = core.getInput('datocms-record-template') || '';
     const datocmsTemplateFile = core.getInput('datocms-template-file') || '';
-    const datocmsOutputFile = core.getInput('datocms-putput-file') || 'README.md';
+    const datocmsOutputFile = core.getInput('datocms-output-file') || 'README.md';
     const datocmsTemplateVariable = core.getInput('datocms-template-variable');
 
     const filterIds = datocmsFilterModelIds.split(',');
