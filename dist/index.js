@@ -43081,10 +43081,11 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue) {
     const client = new SDK({ token: yuqueToken });
 
     const docs = await client.docs.list({ namespace });
-
     const filteredDocs = docs.filter(doc => {
       return doc.status === 1 && (publicOnly && !!doc.public)
     });
+
+    console.log('--> fetch docs', filteredDocs);
 
     const templateContent = fs.existsSync(yuqueTemplateFile) ?  fs.readFileSync(yuqueTemplateFile, 'utf-8') : defaultTemplate;
     const fileTemplate = Handlebars.compile(templateContent);
