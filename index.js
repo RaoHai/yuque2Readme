@@ -7,7 +7,7 @@ const SDK = require('@yuque/sdk');
 
 const defaultTemplate = `
 {{#each record}}
-  - [{{title}} ( {{short created_at "MM-dd"}} · {{math likes_count "*" 7}}颗稻谷)](https://yuque.com/{{@root.namespace}}/{{slug}})
+  - [{{title}} ( {{short updated_at "MM-dd"}} · {{math likes_count "*" 7}}颗稻谷)](https://yuque.com/{{@root.namespace}}/{{slug}})
 {{/each}}
 `;
 
@@ -35,15 +35,17 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue) {
     const yuqueTemplateFile = core.getInput('yuque-template-file') || '';
     const yuqueOutputFile = core.getInput('yuque-output-file') || 'README.md';
     const publicOnly = core.getInput('yuque-doc-public-only');
+    const limit = core.getInput('yuque-doc-limit');
+    const orderBy = core.getInput('yuque-doc-order-by');
 
     const client = new SDK({ token: yuqueToken });
 
     const docs = await client.docs.list({ namespace });
     const filteredDocs = docs.filter(doc => {
       return doc.status === 1 && (publicOnly && !!doc.public)
-    });
-
-    console.log('--> fetch docs', filteredDocs);
+    })
+    .sort((a, b)=> a[orderBy] - b[orderBy])
+    .slice(0, limit);
 
     const templateContent = fs.existsSync(yuqueTemplateFile) ?  fs.readFileSync(yuqueTemplateFile, 'utf-8') : defaultTemplate;
     const fileTemplate = Handlebars.compile(templateContent);
