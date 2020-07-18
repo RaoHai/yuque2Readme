@@ -43053,8 +43053,8 @@ const defaultTemplate = `
 {{/each}}
 `;
 
-Handlebars.registerHelper('short', function (date, options) {
-  return format(new Date(date), options && options.format || 'MMMM dd');
+Handlebars.registerHelper('short', function (date, format = 'MMMM dd') {
+  return format(new Date(date), format);
 });
 
 (async function () {
@@ -43069,8 +43069,9 @@ Handlebars.registerHelper('short', function (date, options) {
 
     const docs = await client.docs.list({ namespace });
 
-    console.log('list docs', docs);
-    const filteredDocs = docs.filter(doc => (publicOnly ? !!doc.public : true));
+    const filteredDocs = docs.filter(doc => {
+      return doc.status === '1' && (publicOnly && !!doc.public)
+    });
 
     const templateContent = fs.existsSync(yuqueTemplateFile) ?  fs.readFileSync(yuqueTemplateFile, 'utf-8') : defaultTemplate;
     const fileTemplate = Handlebars.compile(templateContent);
