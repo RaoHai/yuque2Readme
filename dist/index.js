@@ -43067,14 +43067,15 @@ Handlebars.registerHelper('short', function (date, options) {
 
     const client = new SDK({ token: yuqueToken });
 
-    const docs = (await client.docs.list({ namespace })).filter(doc =>
-      (publicOnly ? !!doc.public : true)
-    );
+    const docs = await client.docs.list({ namespace });
+
+    console.log('list docs', docs);
+    const filteredDocs = docs.filter(doc => (publicOnly ? !!doc.public : true));
 
     const templateContent = fs.existsSync(yuqueTemplateFile) ?  fs.readFileSync(yuqueTemplateFile, 'utf-8') : defaultTemplate;
     const fileTemplate = Handlebars.compile(templateContent);
 
-    fs.writeFileSync(yuqueOutputFile, fileTemplate({ namespace, record: docs }));
+    fs.writeFileSync(yuqueOutputFile, fileTemplate({ namespace, record: filteredDocs }));
 
   } catch (e) {
     core.setFailed(e.message);
