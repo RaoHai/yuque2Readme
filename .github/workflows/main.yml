@@ -14,7 +14,8 @@ jobs:
         id: hello
         with:
           datocms-token: ${{secrets.DATO_CMS_TOKEN}}
-          datocms-record-template: '- [{{title}} ({{short createdAt format="MMMM dd"}})](https://buzhou.top/blogs/{{slug}})'
+          datocms-output-file: README.output.md
+          datocms-record-template: '- [{{title}} ({{short createdAt format="MMMM dd, YYYY"}})](https://buzhou.top/blogs/{{slug}})'
       - name: Result
         run: |-
           cat README.md
