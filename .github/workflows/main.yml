@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Hello world action step
-        uses: ./dist # Uses an action in the root directory
+        uses: ./ # Uses an action in the root directory
         id: hello
         with:
           datocms-token: ${{secrets.DATO_CMS_TOKEN}}
