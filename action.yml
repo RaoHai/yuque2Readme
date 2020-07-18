@@ -5,9 +5,9 @@ branding:
   color: 'green'
 inputs:
   yuque-token: # token of yuque
-    description: '语雀的 token，去 https://www.yuque.com/settings/tokens 里找。需要读取你的知识库和文档。'
+    description: 'secrets.YUQUE_TOKEN. 语雀的 token，去 https://www.yuque.com/settings/tokens 里找。需要读取你的知识库和文档。'
     required: true
-    default: ${{secrets.YUQUE_TOKEN}}
+    default: 'secrets.YUQUE_TOKEN'
   yuque-template-file:
     description: 'Template for generate output'
     default: 'README.template.md'
