@@ -11,8 +11,21 @@ const defaultTemplate = `
 {{/each}}
 `;
 
-Handlebars.registerHelper('short', function (date, format = 'MMMM dd') {
-  return format(new Date(date), format);
+Handlebars.registerHelper('short', function (date, formatStr = 'MMMM dd') {
+  return format(new Date(date), formatStr);
+});
+
+Handlebars.registerHelper("math", function(lvalue, operator, rvalue) {
+  lvalue = parseFloat(lvalue);
+  rvalue = parseFloat(rvalue);
+
+  return {
+      "+": lvalue + rvalue,
+      "-": lvalue - rvalue,
+      "*": lvalue * rvalue,
+      "/": lvalue / rvalue,
+      "%": lvalue % rvalue
+  }[operator];
 });
 
 (async function () {
