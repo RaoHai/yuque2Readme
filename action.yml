@@ -1,0 +1,22 @@
+name: 'DatoCMS to Markdown'
+description: 'Easily embed DatoCMS contents into Markdown.'
+inputs:
+  datocms-token: # token of datoCms
+    description: 'Token of your datoCms site.enter your project administrative area (ie. http://your-project.admin.datocms.com) and go to the  Settings > API Tokens section.'
+    required: true
+    default: 'OOXXOOXX'
+  datocms-site-url: # token of datoCms
+    description: 'Url of your datoCms site. Like https://site-api.datocms.com/site'
+    required: true
+    default: 'https://site-api.datocms.com/site'
+  markdown-file:
+    description: 'Which file to write'
+    required: true
+    default: 'README.md'
+  template-variable:
+    description: 'Where to inject generated content'
+    required: true
+    default: '{{datocms_content}}'
+runs:
+  using: 'node12'
+  main: 'index.js'
