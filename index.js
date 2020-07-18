@@ -1,12 +1,19 @@
-const core = require('@actions/core');
-const { SiteClient } = require('datocms-client');
 const fs = require('fs');
+const core = require('@actions/core');
+const Handlebars = require('handlebars');
+const { format } = require('date-fns');
+
+const { SiteClient } = require('datocms-client');
+
+Handlebars.registerHelper('short', function (date) {
+  return format(new Date(date), 'MMMM DD');
+});
 
 (async function () {
   try {
     const datocmsToken = core.getInput('datocms-token');
     const datocmsFilterModelIds = core.getInput('datocms-filter-model-ids') || '';
-    const datocmsPostUrl = core.getInput('datocms-record-template') || '';
+    const datocmsRecordTemplate = core.getInput('datocms-record-template') || '';
     const datocmsTemplateFile = core.getInput('datocms-template-file') || '';
     const datocmsOutputFile = core.getInput('datocms-output-file') || 'README.md';
     const datocmsTemplateVariable = core.getInput('datocms-template-variable');
@@ -22,14 +29,14 @@ const fs = require('fs');
     const filterdItems = (await client.items.all({ 'page[limit]': 5, version: 'published' }))
       .filter(({ itemType }) => itemTypes.includes(itemType));
 
-    const content = '\n' + filterdItems.map(post => (
-      datocmsPostUrl.replace(/\{\{(\w+)\}\}/g, (_, $) => (post[$]))
-    )) + '\n';
+    const contentTemplate = Handlebars.compile(datocmsRecordTemplate);
+
+    const content = '\n' + filterdItems.map(post => contentTemplate(post)).join('\n') + '\n';
 
     const templateContent = fs.existsSync(datocmsTemplateFile) ?  fs.readFileSync(datocmsTemplateFile, 'utf-8') : '';
+
     const fileContent = templateContent.replace(datocmsTemplateVariable, content);
     fs.writeFileSync(datocmsOutputFile, fileContent);
-    console.log('--> generate successed', fileContent);
 
   } catch (e) {
     core.setFailed(e.message);

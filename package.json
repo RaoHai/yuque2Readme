@@ -21,6 +21,8 @@
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/github": "^4.0.0",
-    "datocms-client": "^3.0.34"
+    "date-fns": "^2.15.0",
+    "datocms-client": "^3.0.34",
+    "handlebars": "^4.7.6"
   }
 }
