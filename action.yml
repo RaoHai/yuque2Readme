@@ -5,10 +5,14 @@ inputs:
     description: 'Token of your datoCms site.enter your project administrative area (ie. http://your-project.admin.datocms.com) and go to the  Settings > API Tokens section.'
     required: true
     default: 'OOXXOOXX'
-  datocms-site-url: # token of datoCms
-    description: 'Url of your datoCms site. Like https://site-api.datocms.com/site'
+  datocms-filter-model-ids:
+    description: 'Module IDs for generate contents, spilit by `,`. (https://www.datocms.com/docs/content-management-api/resources/item-type)'
+    required: false
+    default: 'blog'
+  datocms-post-url:
+    description: 'Url to your post. (ie. `https://buzhou.top/blogs/{{slug}}`)'
     required: true
-    default: 'https://site-api.datocms.com/site'
+    default: 'http://localhost/blogs/{{slug}}'
   markdown-file:
     description: 'Which file to write'
     required: true
