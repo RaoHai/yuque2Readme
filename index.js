@@ -5,8 +5,8 @@ const { format } = require('date-fns');
 
 const { SiteClient } = require('datocms-client');
 
-Handlebars.registerHelper('short', function (date) {
-  return format(new Date(date), 'MMMM DD');
+Handlebars.registerHelper('short', function (date, options) {
+  return format(new Date(date), options && options.format || 'MMMM dd');
 });
 
 (async function () {
