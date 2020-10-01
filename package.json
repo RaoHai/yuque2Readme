@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/RaoHai/yuque2Readme#readme",
   "dependencies": {
-    "@actions/core": "^1.2.4",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
     "@yuque/sdk": "^1.1.1",
     "date-fns": "^2.15.0",
