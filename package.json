@@ -23,6 +23,6 @@
     "@actions/github": "^4.0.0",
     "@yuque/sdk": "^1.1.1",
     "date-fns": "^2.15.0",
-    "handlebars": "^4.7.6"
+    "handlebars": "^4.7.7"
   }
 }
